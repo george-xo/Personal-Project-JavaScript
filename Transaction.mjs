@@ -1,5 +1,6 @@
 import Validator from "./Validator.mjs";
-import constructLog from "./Logger.mjs"
+import constructLog from "./Logger.mjs";
+import deepCopy from "./Copy.mjs";
 
 export default class Transaction {
     #operationStatus;
@@ -27,9 +28,9 @@ export default class Transaction {
                 const index = scenarios.indexOf(scenario);
                 idx = index;
 
-                let before = {...this.store};
+                let before = deepCopy(this.store);
                 await scenario.call(this.store);
-                let after = {...this.store};
+                let after = deepCopy(this.store);
 
                 this.logs.push(constructLog(idx, scenario.meta, null, false, before, after));
 
@@ -41,6 +42,7 @@ export default class Transaction {
             this.logs.push(constructLog(idx, scenarios[idx - 1].meta, error, true));
             await this.#restore(scenarios, idx)
         }
+
     }
 
     async #restore(scenarios, index) {
