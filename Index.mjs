@@ -24,7 +24,8 @@ const scenario = [
             description: 'This action is responsible for deleting customer'
         },
         call: async store => store.amount *= 5,
-        restore: async store => store.amount /= 5,
+        restore: async store => store.amount /= 5
+
     },
     {
         index: 3,

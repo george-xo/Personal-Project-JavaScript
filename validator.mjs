@@ -3,6 +3,9 @@ export default class Validator {
         if (value === undefined) {
             throw new TypeError(`Add property ${propName} in scenario with index ${errorPlace + 1}`);
         } else if (typeof value !== type) {
+            if (propName === 'index') {
+                throw new TypeError(`${propName} is not ${type}, in scenario[${errorPlace}]`);
+            }
             throw new TypeError(`${propName} is not a ${type}, in scenario with index ${errorPlace + 1}`);
         }
     }
@@ -30,8 +33,8 @@ export default class Validator {
         }
     }
 
-    static size (object,maxLength, propName) {
-        if(Object.keys(object).length > maxLength) {
+    static size(object, maxLength, propName) {
+        if (Object.keys(object).length > maxLength) {
             throw new Error(`${propName} can not have more properties than ${maxLength}`);
         }
     }
