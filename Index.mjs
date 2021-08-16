@@ -4,41 +4,39 @@ const scenario = [
     {
         index: 1,
         meta: {
-            title: '111111111Read popular customers',
+            title: 'Read popular customers',
             description: 'This action is responsible for reading the most popular customers'
         },
         call: async store => {
-            store.amount = {}
+            store.amount += 500;
 
-            // Cann add new property
+            // Can add new property
 
             // for example
             // store.step = 1;
         },
-        restore: async store => store.amount -= 100,
+        restore: async store => store.amount -= 500,
     },
     {
         index: 2,
         meta: {
-            title: '222222222222222Delete customer',
+            title: 'Delete customer',
             description: 'This action is responsible for deleting customer'
         },
-        call: async store => {
-            // throw new Error('Error')
-        },
-        restore: async store => {},
+        call: async store => store.amount *= 5,
+        restore: async store => store.amount /= 5,
     },
     {
         index: 3,
         meta: {
-            title: '33333333333Delete customer',
+            title: 'Delete customer',
             description: 'This action is responsible for deleting customer'
         },
         call: async store => store.amount = 0,
     }
 ];
 
-const transaction = new Transaction({amount: 500});
+const transaction = new Transaction({amount: 2000});
 
 (async () => {
     try {
