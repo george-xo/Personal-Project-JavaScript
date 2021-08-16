@@ -58,12 +58,10 @@ export default class Transaction {
                     await scenarios[i].restore(this.store);
                 }
                 if (i === 0) {
-                    this.store = {};
                     console.log(this.#operationStatus.ROLLBACK_DONE)
                 }
             }
         } catch (err) {
-            this.store = {};
             console.log(this.#operationStatus.ROLLBACK_FAILED)
         }
     }
