@@ -33,7 +33,9 @@ const scenario = [
             title: 'Delete customer',
             description: 'This action is responsible for deleting customer'
         },
-        call: async store => store.amount = 0,
+        call: async store => {
+            throw new Error('Err');
+        }
     }
 ];
 

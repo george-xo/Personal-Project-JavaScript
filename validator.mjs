@@ -33,9 +33,9 @@ export default class Validator {
         }
     }
 
-    static size(object, maxLength, propName) {
+    static size(object, maxLength, message) {
         if (Object.keys(object).length > maxLength) {
-            throw new Error(`${propName} can not have more properties than ${maxLength}`);
+            throw new Error(`${message} can not have more properties than ${maxLength}`);
         }
     }
 }

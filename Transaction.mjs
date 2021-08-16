@@ -35,6 +35,7 @@ export default class Transaction {
                 this.logs.push(constructLog(idx, scenario.meta, null, false, before, after));
 
                 if (index === scenarios.length - 1) {
+                    this.store = {};
                     console.log(this.#operationStatus.DONE);
                 }
             }
@@ -47,6 +48,7 @@ export default class Transaction {
 
     async #restore(scenarios, index) {
         if (index === 0) {
+            this.store = {};
             console.log(this.#operationStatus.ROLLBACK_NONE);
             return;
         }
@@ -56,10 +58,12 @@ export default class Transaction {
                     await scenarios[i].restore(this.store);
                 }
                 if (i === 0) {
+                    this.store = {};
                     console.log(this.#operationStatus.ROLLBACK_DONE)
                 }
             }
         } catch (err) {
+            this.store = {};
             console.log(this.#operationStatus.ROLLBACK_FAILED)
         }
     }
@@ -70,7 +74,11 @@ export default class Transaction {
 
             Validator.isObject(scenario);
 
-            Validator.size(scenario, 4, 'Scenario');
+            if (!scenario.hasOwnProperty('restore')) {
+                Validator.size(scenario, 3, 'If Scenario has no restore it');
+            } else {
+                Validator.size(scenario, 4, 'Scenario');
+            }
             Validator.size(scenario.meta, 2, 'Meta');
 
             Validator.isType(scenario.index, 'number', 'index', index);
